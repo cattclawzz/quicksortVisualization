@@ -1,2 +1,2 @@
 # quicksortVisualization
-quick sort algorithm visualized using tkinter
+Quicksort algorithm visualized using tkinter
