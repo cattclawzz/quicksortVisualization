@@ -1,6 +1,7 @@
 from random import shuffle
 import tkinter as tk
 import threading as thr
+import time
 
 window = tk.Tk()
 canWidth,canHeight = 500,500
@@ -9,7 +10,6 @@ canvas.pack()
 
 values = [i+1 for i in range(500)]
 shuffle(values)
-print(values)
 
 def drawLines(z):
     for i in range (len(z)):
@@ -31,6 +31,7 @@ def quicksort(z, start, end, depth = 0):
 
         if i < j:
             z[i], z[j] = z[j], z[i]
+            time.sleep(0.01)
 
             if z[i] < pivot:
                 i += 1
@@ -49,14 +50,9 @@ def mainLoop():
 
     window.after(16, mainLoop)
 
-t1 = thr.Thread(target=mainLoop, args=())
-t2 = thr.Thread(target=quicksort, args=())
+t2 = thr.Thread(target=quicksort, args=(values, 0, len(values)-1))
 
-t1.start()
-t2.start(values, 0, len(values)-1)
+t2.start()
 
-t1.join()
-t2.join()
-
-#quicksort(values, 0, len(values)-1)
-#window.mainloop()
+mainLoop()
+window.mainloop()
