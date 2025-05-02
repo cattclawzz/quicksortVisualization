@@ -8,12 +8,12 @@ canWidth,canHeight = 500,500
 canvas = tk.Canvas(window, width=canWidth, height=canHeight, bg='light grey')
 canvas.pack()
 
-values = [i+1 for i in range(500)]
+values = [i+(canWidth/canHeight) for i in range(canWidth)]
 shuffle(values)
 
 def drawLines(z):
     for i in range (len(z)):
-        canvas.create_line(i, 500, i, 500-z[i], fill= 'black')
+        canvas.create_line(i, canHeight, i, canHeight-z[i], fill= 'black')
 
 def quicksort(z, start, end, depth = 0):
     if end - start < 1:
@@ -43,16 +43,15 @@ def quicksort(z, start, end, depth = 0):
 
     return z
 
-def mainLoop():
+def render():
     canvas.delete("all")
 
     drawLines(values)
 
-    window.after(16, mainLoop)
+    window.after(16, render)
 
-t2 = thr.Thread(target=quicksort, args=(values, 0, len(values)-1))
+quicksortThread = thr.Thread(target=quicksort, args=(values, 0, len(values)-1))
+quicksortThread.start()
 
-t2.start()
-
-mainLoop()
+render()
 window.mainloop()
