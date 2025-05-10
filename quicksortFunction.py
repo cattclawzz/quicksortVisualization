@@ -4,7 +4,7 @@ import threading as thr
 import time
 
 window = tk.Tk()
-canWidth,canHeight = 500,500
+canWidth,canHeight = 1000, 1000
 canvas = tk.Canvas(window, width=canWidth, height=canHeight, bg='light grey')
 canvas.pack()
 
